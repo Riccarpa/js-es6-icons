@@ -68,11 +68,11 @@ const search = document.getElementById('search-by-word');
 
 
 
-search.addEventListener('change', () => {
+search.addEventListener('input', () => {
 
     let searchValue = search.value;
 
-    const filteredCards = icons.filter((item) => item.name === searchValue);
+    const filteredCards = icons.filter((item) => item.name.includes(searchValue));
 
     printCards(filteredCards);
 
