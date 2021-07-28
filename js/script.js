@@ -1,8 +1,5 @@
 /*
- Milestone 1
-Partendo dalla seguente struttura dati , mostriamo in pagina tutte le icone disponibili come da layout.
-Milestone 2
-Coloriamo le icone per tipo
+
 Milestone 3
 Creiamo una select con i tipi di icone e usiamola per filtrare le icone
 :avviso:IMPORTANTE: non è obbligatorio usare la sintassi ES6, se non vi sentite a vostro agio partite dalla sintassi 
@@ -11,25 +8,57 @@ BONUS: Provare ad aggiungere una casella di testo che renda possibile filtrare a
 SUPER INCREDIBLE MEGA BONUS: effettuare la ricerca dalla casella di testo in "tempo reale", cioè man mano che l'utente digita.
 
 */
-let card = '';
 
-icons.forEach(element => {
+//funzioni********************************************
 
-    card +=
-        `<div class="col-md-2">
-            <div class="card ">
-                <div class="card-body text-center ">
-                    <span class = "${element.family} ${element.prefix}${element.name} ${element.type} fa-2x"> </span>
-                     <h2 class = "h6 ">  ${element.name} <h2>
-                </div>
-            </div> 
-        </div>`;
+function printCards(iconsArray) {
+    let card = '';
+    iconsArray.forEach(element => {
+        card +=
+            `<div class="col-md-2">
+                <div class="card ">
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                        <div class = "text-center">
+                            <span class = "${element.family} ${element.prefix}${element.name} ${element.type} fa-2x"> </span>
+                            <h2 class = "h6 ">  ${element.name} <h2>
+                        </div>
+                    </div>
+                </div> 
+            </div>`;
+
+    });
+    const cardSection = document.querySelector('#cards .row');
+    cardSection.innerHTML = card;
+}
 
 
-});
 
-const cardSection = document.querySelector('#cards .row');
 
-cardSection.innerHTML = card;
 
-//${element.prefix}${element.type}
+
+
+// esercizio************************************************
+
+
+// stampo le carte 
+printCards(icons);
+
+//filto per tipo e stampo
+const selectLink = document.getElementById('select-type');
+
+
+selectLink.addEventListener('change', () => {
+    // raccolgo il valore dell'input
+    let cardValue = selectLink.value;
+
+    // stampo il valore 'all'
+    if (cardValue == 'all') {
+        return printCards(icons);
+    }
+
+    //filtro in base al tipo e stampo
+    const filteredCards = icons.filter((item) => item.type === cardValue);
+    return printCards(filteredCards);
+
+
+})
